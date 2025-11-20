@@ -37,7 +37,7 @@ except Exception as e:
     st.stop()
 
 # Modelo ultrarápido para demos en vivo
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-1.5-flash-001')
 
 # --- FUNCIONES AUXILIARES ---
 
@@ -185,4 +185,5 @@ with tab_dashboard:
         st.dataframe(pd.DataFrame(st.session_state['historial']), use_container_width=True)
     else:
         st.info("Esperando reportes de campo...")
+
 
