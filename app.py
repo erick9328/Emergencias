@@ -37,7 +37,37 @@ except Exception as e:
     st.stop()
 
 # Modelo ultrarápido para demos en vivo
-model = genai.GenerativeModel('gemini-1.5-flash-001')
+#model = genai.GenerativeModel('gemini-1.5-flash-001')
+
+# --- BLOQUE DE DIAGNÓSTICO ---
+st.subheader("🔍 Diagnóstico de Modelos")
+try:
+    # Preguntamos a Google qué modelos ve disponibles con tu clave
+    lista_modelos = []
+    for m in genai.list_models():
+        if 'generateContent' in m.supported_generation_methods:
+            lista_modelos.append(m.name)
+            
+    st.success(f"Conexión Exitosa. Modelos detectados: {len(lista_modelos)}")
+    with st.expander("Ver lista completa de modelos"):
+        st.write(lista_modelos)
+
+    # INTENTO DE SELECCIÓN AUTOMÁTICA
+    # Si encuentra 'flash', lo usa. Si no, usa 'pro'.
+    if "models/gemini-1.5-flash" in lista_modelos:
+        nombre_modelo = "gemini-1.5-flash"
+    elif "models/gemini-1.5-pro" in lista_modelos:
+        nombre_modelo = "gemini-1.5-pro"
+    else:
+        nombre_modelo = "gemini-pro-vision" # Fallback antiguo
+    
+    st.info(f"Usando modelo: {nombre_modelo}")
+    model = genai.GenerativeModel(nombre_modelo)
+
+except Exception as e:
+    st.error(f"Error grave conectando con Google AI: {e}")
+    st.stop()
+# -----------------------------
 
 # --- FUNCIONES AUXILIARES ---
 
@@ -185,5 +215,6 @@ with tab_dashboard:
         st.dataframe(pd.DataFrame(st.session_state['historial']), use_container_width=True)
     else:
         st.info("Esperando reportes de campo...")
+
 
 
