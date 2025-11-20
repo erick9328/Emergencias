@@ -20,8 +20,8 @@ except Exception as e:
     st.error("⚠️ Falta API Key en Secrets.")
     st.stop()
 
-# --- 2. DEFINICIÓN DEL MODELO (USANDO TU VERSIÓN DISPONIBLE) ---
-# Usamos Gemini 2.5 Flash que apareció en tu lista
+# --- 2. DEFINICIÓN DEL MODELO (VERSIÓN 2.5 FLASH) ---
+# Usamos el modelo exacto que apareció en tu lista
 try:
     model = genai.GenerativeModel('gemini-2.5-flash')
 except:
@@ -43,6 +43,7 @@ def analizar_imagen(image):
     """
     try:
         response = model.generate_content([prompt, image])
+        # Limpieza robusta del JSON
         texto = response.text.replace("```json", "").replace("```", "").strip()
         return json.loads(texto)
     except Exception as e:
@@ -51,7 +52,7 @@ def analizar_imagen(image):
 
 # --- 4. INTERFAZ DE USUARIO ---
 st.title("🇪🇨 GeoResponse AI: Logística Humanitaria 2.5")
-st.markdown("**Optimización de respuesta ante desastres con Inteligencia Artificial.**")
+st.markdown("**Optimización de respuesta ante desastres con Inteligencia Artificial (Gemini 2.5).**")
 
 # Sidebar
 with st.sidebar:
@@ -68,14 +69,16 @@ with st.sidebar:
 # Pestañas
 tab1, tab2 = st.tabs(["📸 Captura de Evidencia", "🗺️ Mapa de Crisis"])
 
+# --- PESTAÑA 1: CAPTURA ---
 with tab1:
     col1, col2 = st.columns(2)
     with col1:
         input_mode = st.radio("Fuente:", ["Cámara", "Subir Foto"], horizontal=True)
+        archivo = None
         if input_mode == "Cámara":
             archivo = st.camera_input("Tomar Foto")
         else:
-            archivo = st.file_uploader("Cargar imagen", type=['jpg','png'])
+            archivo = st.file_uploader("Cargar imagen", type=['jpg','png', 'jpeg'])
 
     with col2:
         if archivo:
@@ -98,20 +101,40 @@ with tab1:
                         else:
                             st.success(f"✅ REPORTE: {res['resumen']}")
                             
-                        # Guardar en historial temporal
-                        if 'puntos' not in st.session_state: st.session_state['puntos'] = []
+                        # Guardar en historial temporal (Session State)
+                        if 'puntos' not in st.session_state: 
+                            st.session_state['puntos'] = []
+                        
                         st.session_state['puntos'].append({
                             "lat": coords[lugar][0],
                             "lon": coords[lugar][1],
-                            "severidad": res['severidad'] * 100 # Para tamaño en mapa
+                            "severidad": res['severidad'] * 50 # Multiplicador para que se vea en el mapa
                         })
+                        st.toast("Datos enviados al mapa", icon="🗺️")
 
+# --- PESTAÑA 2: MAPA ---
 with tab2:
     st.subheader("Mapa de Calor de Incidentes")
-    # Datos base
-    df = pd.DataFrame([
-        {"lat": -2.900, "lon": -79.000, "severidad": 200},
-        {"lat": -2.850, "lon": -79.100, "sever
+    
+    # Datos base simulados
+    datos_base = [
+        {"lat": -2.900, "lon": -79.000, "severidad": 100},
+        {"lat": -2.850, "lon": -79.100, "severidad": 500}
+    ]
+    df = pd.DataFrame(datos_base)
+    
+    # Sumar nuevos puntos si existen
+    if 'puntos' in st.session_state and st.session_state['puntos']:
+        df_nuevos = pd.DataFrame(st.session_state['puntos'])
+        df = pd.concat([df, df_nuevos], ignore_index=True)
+        
+    # Renderizar mapa
+    st.map(df, latitude='lat', longitude='lon', size='severidad', color='#FF4B4B')
+    
+    if 'puntos' in st.session_state and st.session_state['puntos']:
+        st.caption("Nuevos incidentes registrados en esta sesión:")
+        st.dataframe(pd.DataFrame(st.session_state['puntos']))
+
 
 
 
