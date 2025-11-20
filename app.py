@@ -51,7 +51,7 @@ def analizar_imagen(image):
         return None
 
 # --- 4. INTERFAZ DE USUARIO ---
-st.title("🇪🇨 GeoResponse AI: Logística Humanitaria 2.5")
+st.title("🇪🇨 Sistema IA de Logística Humanitaria")
 st.markdown("**Optimización de respuesta ante desastres con Inteligencia Artificial (Gemini 2.5).**")
 
 # Sidebar
@@ -134,6 +134,7 @@ with tab2:
     if 'puntos' in st.session_state and st.session_state['puntos']:
         st.caption("Nuevos incidentes registrados en esta sesión:")
         st.dataframe(pd.DataFrame(st.session_state['puntos']))
+
 
 
 
