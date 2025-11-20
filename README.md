@@ -1,5 +1,3 @@
-# GeoResponse AI - Hackathon Social for Good 2025 🇪🇨
-
 **Optimizador de Logística Humanitaria basado en Inteligencia Artificial Geoespacial.**
 
 ### 🚀 El Problema
