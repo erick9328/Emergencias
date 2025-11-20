@@ -1,3 +1,13 @@
+# Esto obliga a instalar la librería si requirements.txt falla
+try:
+    import google.generativeai as genai
+except ImportError:
+    st.toast("🔧 Instalando librerías de IA... espera unos segundos...", icon="⚙️")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "google-generativeai"])
+    import google.generativeai as genai
+# -----------------------------------------------------
+
+
 import streamlit as st
 import google.generativeai as genai
 from PIL import Image
@@ -175,3 +185,4 @@ with tab_dashboard:
         st.dataframe(pd.DataFrame(st.session_state['historial']), use_container_width=True)
     else:
         st.info("Esperando reportes de campo...")
+
