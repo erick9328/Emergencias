@@ -1,0 +1,401 @@
+<title>Plan Peques Navidad</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: una sola columna de trabajo. Veredicto y números arriba; supuestos y productos en el centro; paquetes, escenarios, calendario y riesgos debajo. */
+:root{
+  --bg:#F3F5FA; --surface:#FFFFFF; --ink:#17203B; --muted:#58628A; --line:#DCE1EE;
+  --accent:#C98A12; --accent-soft:#FFF2D4; --accent-ink:#5C3B00;
+  --good:#1D7458; --good-soft:#E0F3EA; --warn:#A35F00; --warn-soft:#FFEFD2; --bad:#B23A30; --bad-soft:#FBE4E0;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1322; --surface:#161D32; --ink:#E7EBF6; --muted:#9BA5C4; --line:#29324E;
+    --accent:#F0B43C; --accent-soft:#2C2410; --accent-ink:#FFE1A3;
+    --good:#4CC497; --good-soft:#11302A; --warn:#F0A44A; --warn-soft:#33260F; --bad:#F0796D; --bad-soft:#3A1A18;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1322; --surface:#161D32; --ink:#E7EBF6; --muted:#9BA5C4; --line:#29324E;
+  --accent:#F0B43C; --accent-soft:#2C2410; --accent-ink:#FFE1A3;
+  --good:#4CC497; --good-soft:#11302A; --warn:#F0A44A; --warn-soft:#33260F; --bad:#F0796D; --bad-soft:#3A1A18;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,4.4vw,44px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:22px;font-weight:800}
+h3{font-size:16px;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+header{display:grid;gap:12px}
+.lede{max-width:70ch;color:var(--muted)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700;border:1px solid transparent}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.neutral{background:var(--surface);color:var(--muted);border-color:var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:4px;min-width:0}
+.kpi .v{font-family:var(--f-mono);font-size:26px;font-variant-numeric:tabular-nums;font-weight:500}
+.kpi .s{font-size:13px;color:var(--muted)}
+.kpi.hero{background:var(--accent-soft);border-color:transparent}
+.kpi.hero .v{color:var(--accent-ink)}
+section{display:grid;gap:14px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.grid-params{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px 16px}
+label.f{display:grid;grid-template-rows:1fr auto;align-items:end;gap:4px;font-size:13px;color:var(--muted)}
+label.f span b{color:var(--ink)}
+input[type=number],input[type=text]{font:inherit;font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%;min-width:0}
+input:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.table-box{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:980px;font-size:14px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--bg);position:sticky;top:0}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+tr.off td{opacity:.45}
+td .name{font-weight:700}
+td .meta{font-size:12px;color:var(--muted)}
+td input[type=number]{width:78px;text-align:right}
+td.prod{min-width:240px}
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.tag.top{background:var(--accent-soft);color:var(--accent-ink)}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+tfoot td{font-weight:700;background:var(--bg)}
+.row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.pk{display:grid;gap:10px}
+.pkrow{display:grid;grid-template-columns:90px 1fr;gap:10px;align-items:center;font-size:13px}
+.bar{height:10px;border-radius:5px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar i.v{background:var(--good)}
+.pkmeta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px}
+.chart svg{width:100%;height:auto;display:block}
+.timeline{display:grid;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.tl{position:relative;padding:0 0 16px 20px}
+.tl::before{content:"";position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.tl.key::before{background:var(--accent)}
+.tl .d{font-family:var(--f-mono);font-size:13px;color:var(--accent-ink);background:var(--accent-soft);border-radius:4px;padding:0 6px;display:inline-block;margin-bottom:2px}
+ul.clean{margin:0;padding-left:18px;display:grid;gap:6px}
+.risk{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.risk:last-child{border-bottom:0}
+.btns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font:inherit;font-weight:700;font-size:14px;border-radius:6px;padding:7px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+button.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.note{font-size:13px;color:var(--muted)}
+.callout{border-radius:10px;padding:14px 16px;background:var(--warn-soft);color:var(--ink);display:grid;gap:6px}
+.callout b{color:var(--warn)}
+.sizes{min-width:520px}
+.sizes td,.sizes th{text-align:center}
+@media (max-width:600px){.kpi .v{font-size:22px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Ropa de 3 meses a 5 años · Temu → Ecuador · Temporada Navidad 2026</p>
+    <h1>Plan Peques Navidad</h1>
+    <p class="lede">Cuánto cuesta cada prenda puesta en Ecuador con la tasa de $20 por paquete 4x4, a qué precio venderla y cuánto ganas. Cambia cualquier número y todo se recalcula.</p>
+    <div class="pills" id="verdict"></div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <div class="sec-head"><h2>Supuestos</h2><p class="note">Los datos de productos son de referencia hasta que el agente investigador traiga los de tu cuenta de Temu.</p></div>
+    <div class="panel grid-params" id="params"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Productos</h2>
+      <div class="btns">
+        <label class="note" for="file">Cargar productos.json del agente:</label>
+        <input type="file" id="file" accept="application/json,.json">
+        <button id="copy">Copiar datos</button>
+        <button id="reset">Volver a valores de referencia</button>
+      </div>
+    </div>
+    <div class="table-box">
+      <table>
+        <thead><tr>
+          <th>Comprar</th><th>Producto</th><th>Temu $/u</th><th>Peso g</th><th>Cant.</th>
+          <th>Costo en EC/u</th><th>Sugerido</th><th>Tu precio</th><th>Ganancia/u</th><th>Margen</th><th>Ganancia total</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+        <tfoot id="foot"></tfoot>
+      </table>
+    </div>
+    <p class="note">“Costo en EC/u” = precio Temu + FODINFA + su parte de las tasas de paquete (repartidas por peso) + empaque. “Ganancia/u” ya descuenta la comisión de cobro. La publicidad se resta en el total, no por unidad.</p>
+  </section>
+
+  <div class="row2">
+    <section>
+      <div class="sec-head"><h2>Paquetes 4x4</h2><span class="note" id="pkNote"></span></div>
+      <div class="panel pk" id="packages"></div>
+    </section>
+    <section>
+      <div class="sec-head"><h2>Si vendes…</h2><span class="note">Ganancia neta según el % del stock vendido</span></div>
+      <div class="panel chart" id="chart"></div>
+    </section>
+  </div>
+
+  <div class="row2">
+    <section>
+      <h2>Calendario hasta Navidad</h2>
+      <div class="panel"><div class="timeline">
+        <div class="tl key"><span class="d">22–27 oct</span><h3>Elegir y comprar</h3><p class="muted">Correr el agente investigador, armar el pedido para que salga en el menor número de paquetes y pagar con los cupones de bienvenida.</p></div>
+        <div class="tl"><span class="d">28 oct–15 nov</span><h3>Preparar la tienda</h3><p class="muted">Instagram, Facebook, TikTok y WhatsApp Business listos; landing publicada; contenido “próximamente” sin prometer fecha exacta.</p></div>
+        <div class="tl key"><span class="d">10–30 nov</span><h3>Llegada probable</h3><p class="muted">Temu suele tardar 10 a 25 días hábiles a Ecuador y en temporada alta puede tardar el doble. Si llega tarde, el plan se mueve una semana.</p></div>
+        <div class="tl"><span class="d">27 nov</span><h3>Black Friday local</h3><p class="muted">Lanzamiento con fotos reales y combos. No compres para reventa en el Black Friday de Temu: llegaría después de Navidad.</p></div>
+        <div class="tl key"><span class="d">~5 dic</span><h3>Tu ventaja empieza</h3><p class="muted">Desde aquí un pedido nuevo de Temu ya no llega a tiempo para Navidad. Tus clientes compran contigo porque tienes la ropa hoy.</p></div>
+        <div class="tl"><span class="d">16–24 dic</span><h3>Último empujón</h3><p class="muted">Entrega el mismo día, empaque de regalo, combos para liquidar tallas sueltas.</p></div>
+        <div class="tl"><span class="d">26–31 dic</span><h3>Fin de año</h3><p class="muted">Vestidos de fiesta y ropa fresca para la playa en la Costa.</p></div>
+      </div></div>
+    </section>
+    <section>
+      <h2>Cómo comprar en Temu</h2>
+      <div class="panel" style="display:grid;gap:14px">
+        <div><h3>Qué producto elegir</h3>
+          <ul class="clean">
+            <li>Más de 1.000 vendidos y calificación de 4,7 o más.</li>
+            <li>Al menos 20 reseñas con <b>fotos de clientes</b>; descarta los que solo tienen fotos del vendedor.</li>
+            <li>Lee las reseñas de 3 estrellas: ahí aparecen tela delgada, tallas pequeñas y costuras.</li>
+            <li>Composición en la ficha: algodón o algodón con 5% de spandex. Evita 100% poliéster en bebés.</li>
+            <li>Tabla de tallas en cm (estatura, pecho, largo). Si las reseñas dicen “talla pequeña”, pide una más.</li>
+          </ul></div>
+        <div><h3>Cómo pagar menos</h3>
+          <ul class="clean">
+            <li>Cada paquete paga $20 sin importar su peso: llena cada paquete hasta casi 4 kg y por debajo de $400.</li>
+            <li>Temu puede dividir un pedido en varios envíos y cada envío paga $20. Antes de pagar, revisa cuántos envíos indica el checkout.</li>
+            <li>Usa los cupones de bienvenida y los descuentos por monto mínimo que te muestre la app con tu cuenta de Ecuador.</li>
+            <li>Compra una muestra de las 2 prendas más caras si tienes dudas de calidad.</li>
+          </ul></div>
+      </div>
+    </section>
+  </div>
+
+  <section>
+    <h2>Guía de tallas para tus clientes</h2>
+    <div class="table-box"><table class="sizes">
+      <thead><tr><th>Etiqueta Temu</th><th>Edad aprox.</th><th>Estatura</th><th>Pie (cm)</th></tr></thead>
+      <tbody>
+        <tr><td class="num">66</td><td>3–6 meses</td><td class="num">59–66 cm</td><td class="num">10–11</td></tr>
+        <tr><td class="num">73</td><td>6–9 meses</td><td class="num">66–73 cm</td><td class="num">11–12</td></tr>
+        <tr><td class="num">80</td><td>9–18 meses</td><td class="num">73–80 cm</td><td class="num">12–13</td></tr>
+        <tr><td class="num">90</td><td>18 meses–2 años</td><td class="num">80–90 cm</td><td class="num">13–14</td></tr>
+        <tr><td class="num">100</td><td>2–3 años</td><td class="num">90–100 cm</td><td class="num">14–15,5</td></tr>
+        <tr><td class="num">110</td><td>3–4 años</td><td class="num">100–110 cm</td><td class="num">15,5–17</td></tr>
+        <tr><td class="num">120</td><td>4–5 años</td><td class="num">110–120 cm</td><td class="num">17–18</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Rango habitual de las etiquetas por estatura que usan los vendedores de Temu. Confirma con la tabla de cada producto: varía por fabricante.</p>
+  </section>
+
+  <section>
+    <h2>Riesgos antes de invertir</h2>
+    <div class="panel">
+      <div class="risk"><span class="pill bad">Legal</span><div><p><b>El 4x4 es para compras sin fines comerciales.</b> SENAE ha dicho que traer mercadería por courier para venderla está prohibido y tiene sanciones, y la tasa de $20 se creó para frenar ese uso. Para un primer lote pequeño el riesgo práctico es bajo, pero si el negocio funciona necesitas RUC (RIMPE emprendedor) e importar por régimen formal o comprar a un importador. Confírmalo con un agente de aduanas.</p></div></div>
+      <div class="risk"><span class="pill warn">Cupo</span><div><p>El 4x4 tiene un tope de <b>$1.600 al año por persona</b> (valor FOB) y cada paquete hasta 4 kg y $400. Lo que hayas comprado este año en Temu, Amazon o Shein ya cuenta.</p></div></div>
+      <div class="risk"><span class="pill warn">Tiempo</span><div><p>Si el pedido se retrasa a mediados de diciembre, pierdes la mitad de la temporada. Compra esta semana.</p></div></div>
+      <div class="risk"><span class="pill warn">Calidad</span><div><p>Las tallas y la tela de Temu varían entre vendedores. Presupuesta un 5–10% de prendas que no podrás vender a precio completo.</p></div></div>
+      <div class="risk"><span class="pill neutral">Competencia</span><div><p>Tu cliente también puede comprar en Temu. Vendes rapidez, fotos reales, asesoría de talla, pago contra entrega y empaque de regalo.</p></div></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const REF = __PRODUCTOS_JSON__;
+const PARAMS_DEF = [
+  ["tasa","Tasa por paquete 4x4 ($)",20,1],
+  ["manejo","Otros cargos por paquete ($)",0,0.5],
+  ["fodinfa","FODINFA (% del valor)",0.5,0.1],
+  ["pesoUtil","Peso útil por paquete (kg)",3.6,0.1],
+  ["valorMax","Valor máximo por paquete ($)",400,10],
+  ["empaque","Empaque y etiqueta por prenda ($)",0.35,0.05],
+  ["comision","Comisión de cobro (%)",2,0.5],
+  ["merma","Prendas que no se venden a precio completo (%)",8,1],
+  ["publicidad","Publicidad total ($)",60,5],
+  ["fijos","Otros gastos fijos ($)",15,5],
+  ["markup","Multiplicador para precio sugerido",2.3,0.1],
+  ["usado","Ya importado por 4x4 este año ($)",0,10]
+];
+const KEY="planPequesNavidad.v1";
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function fresh(){const p={};PARAMS_DEF.forEach(([k,,v])=>p[k]=v);return {params:p,products:clone(REF.productos).map(x=>({...x,on:true}))}}
+let state;
+try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){state=null}
+if(!state||!state.params||!state.products)state=fresh();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+const $=s=>document.querySelector(s);
+const usd=(n,d=2)=>(n<0?"−":"")+"$"+Math.abs(n).toLocaleString("es-EC",{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct=n=>Math.round(n*100)+"%";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function pack(items,P){
+  const units=[];
+  items.forEach(p=>{for(let i=0;i<p.cantidad;i++)units.push({id:p.id,w:+p.peso_g,v:+p.precio_temu})});
+  units.sort((a,b)=>b.w-a.w);
+  const capW=P.pesoUtil*1000,capV=P.valorMax,boxes=[];
+  units.forEach(u=>{
+    let b=boxes.find(x=>x.w+u.w<=capW&&x.v+u.v<=capV);
+    if(!b){b={w:0,v:0,n:0};boxes.push(b)}
+    b.w+=u.w;b.v+=u.v;b.n++;
+  });
+  return boxes;
+}
+
+function calc(){
+  const P=state.params;
+  const items=state.products.filter(p=>p.on&&p.cantidad>0);
+  const boxes=pack(items,P);
+  const nPk=boxes.length;
+  const pkFees=nPk*(P.tasa+P.manejo);
+  const peso=items.reduce((s,p)=>s+p.peso_g*p.cantidad,0)||1;
+  const fob=items.reduce((s,p)=>s+p.precio_temu*p.cantidad,0);
+  const units=items.reduce((s,p)=>s+p.cantidad,0);
+  const rows=state.products.map(p=>{
+    const share=(p.on&&p.cantidad>0)?pkFees*(p.peso_g/peso):(P.tasa+P.manejo)*(p.peso_g/(P.pesoUtil*1000));
+    const landed=p.precio_temu*(1+P.fodinfa/100)+share+P.empaque;
+    const sug=Math.max(1,Math.ceil(landed*P.markup))-0.01;
+    const net=p.precio_venta*(1-P.comision/100)-landed;
+    return {p,landed,sug,net,margin:p.precio_venta>0?net/p.precio_venta:0,total:net*p.cantidad*(1-P.merma/100)};
+  });
+  const on=rows.filter(r=>r.p.on&&r.p.cantidad>0);
+  const stock=on.reduce((s,r)=>s+r.landed*r.p.cantidad,0);
+  const inversion=stock+P.publicidad+P.fijos;
+  const netRev=on.reduce((s,r)=>s+r.p.precio_venta*(1-P.comision/100)*r.p.cantidad,0);
+  const sellable=1-P.merma/100;
+  const profitAt=st=>netRev*sellable*st-inversion;
+  const avgNet=units?netRev/units:0;
+  const beUnits=avgNet?Math.ceil(inversion/avgNet):0;
+  const expected=profitAt(0.85);
+  const ranked=on.slice().sort((a,b)=>b.net*b.p.demanda-a.net*a.p.demanda).slice(0,4).map(r=>r.p.id);
+  return {P,boxes,nPk,pkFees,fob,units,rows,stock,inversion,netRev,profitAt,beUnits,expected,ranked,capLeft:1600-P.usado-fob};
+}
+
+function renderParams(){
+  $("#params").innerHTML=PARAMS_DEF.map(([k,l,,step])=>`<label class="f" for="p-${k}"><span>${l}</span><input type="number" id="p-${k}" data-k="${k}" step="${step}" min="0" value="${state.params[k]}"></label>`).join("");
+  $("#params").querySelectorAll("input").forEach(i=>i.addEventListener("input",e=>{const v=parseFloat(e.target.value);if(!isNaN(v)){state.params[e.target.dataset.k]=v;save();update()}}));
+}
+
+function renderRows(c){
+  $("#rows").innerHTML=c.rows.map((r,i)=>{const p=r.p;const top=c.ranked.includes(p.id);return `<tr class="${p.on?"":"off"}">
+    <td><input type="checkbox" id="on-${i}" data-i="${i}" data-f="on" ${p.on?"checked":""} aria-label="Comprar ${esc(p.nombre)}"></td>
+    <td class="prod"><div class="name">${esc(p.nombre)}${top?'<span class="tag top">Prioridad</span>':""}</div>
+      <div class="meta">${esc(p.edad)} · ${esc(p.categoria)}${p.ventas?` · ${Number(p.ventas).toLocaleString("es-EC")} vendidos`:""}${p.rating?` · ★ ${p.rating}`:""}${p.resenas_con_foto?` · ${p.resenas_con_foto} reseñas con foto`:""}</div>
+      <div class="meta">${esc(p.tela)}</div><div class="meta">Tallas: ${esc(p.tallas)}</div>
+      ${p.url?`<div class="meta"><a href="${esc(p.url)}" target="_blank" rel="noopener">Ver en Temu</a></div>`:`<div class="meta">Buscar: “${esc(p.buscar_en_temu)}”</div>`}</td>
+    <td><input type="number" id="pt-${i}" data-i="${i}" data-f="precio_temu" step="0.1" min="0" value="${p.precio_temu}"></td>
+    <td><input type="number" id="pg-${i}" data-i="${i}" data-f="peso_g" step="10" min="1" value="${p.peso_g}"></td>
+    <td><input type="number" id="pc-${i}" data-i="${i}" data-f="cantidad" step="1" min="0" value="${p.cantidad}"></td>
+    <td class="num" data-c="landed">${usd(r.landed)}</td>
+    <td class="num muted" data-c="sug">${usd(r.sug)}</td>
+    <td><input type="number" id="pv-${i}" data-i="${i}" data-f="precio_venta" step="0.5" min="0" value="${p.precio_venta}"><div class="meta">${esc(p.referencia_local)}</div></td>
+    <td class="num" data-c="net"></td><td class="num" data-c="margin"></td><td class="num" data-c="total"></td></tr>`}).join("");
+  $("#rows").querySelectorAll("input").forEach(inp=>inp.addEventListener(inp.type==="checkbox"?"change":"input",e=>{
+    const t=e.target,p=state.products[+t.dataset.i];
+    if(t.type==="checkbox"){p.on=t.checked;t.closest("tr").classList.toggle("off",!t.checked)}
+    else{const v=parseFloat(t.value);if(isNaN(v))return;p[t.dataset.f]=t.dataset.f==="cantidad"?Math.round(v):v}
+    save();update(false);
+  }));
+}
+
+function cellUpdate(c){
+  const trs=$("#rows").children;
+  c.rows.forEach((r,i)=>{const tr=trs[i];if(!tr)return;
+    tr.querySelector('[data-c="landed"]').textContent=usd(r.landed);
+    tr.querySelector('[data-c="sug"]').textContent=usd(r.sug);
+    const n=tr.querySelector('[data-c="net"]');n.textContent=usd(r.net);n.className="num "+(r.net>=0?"pos":"neg");
+    const m=tr.querySelector('[data-c="margin"]');m.textContent=pct(r.margin);m.className="num "+(r.margin>=0.35?"pos":r.margin<0.15?"neg":"");
+    const t=tr.querySelector('[data-c="total"]');t.textContent=r.p.on?usd(r.total):"—";t.className="num "+(r.total>=0?"":"neg");
+    const tag=tr.querySelector(".tag.top"),top=c.ranked.includes(r.p.id);
+    if(top&&!tag)tr.querySelector(".name").insertAdjacentHTML("beforeend",'<span class="tag top">Prioridad</span>');
+    if(!top&&tag)tag.remove();
+  });
+  const on=c.rows.filter(r=>r.p.on&&r.p.cantidad>0);
+  $("#foot").innerHTML=`<tr><td></td><td>Total del pedido</td><td class="num">${usd(c.fob)}</td><td class="num">${(c.boxes.reduce((s,b)=>s+b.w,0)/1000).toFixed(1)} kg</td><td class="num">${c.units}</td><td class="num">${usd(c.stock)}</td><td></td><td></td><td></td><td></td><td class="num">${usd(on.reduce((s,r)=>s+r.total,0))}</td></tr>`;
+}
+
+function renderKpis(c){
+  const roi=c.inversion?c.expected/c.inversion:0;
+  $("#kpis").innerHTML=[
+    ["Inversión total",usd(c.inversion,0),`Pedido ${usd(c.fob,0)} + tasas ${usd(c.pkFees,0)} + marketing`],
+    ["Ganancia neta",usd(c.expected,0),"Si vendes el 85% del stock vendible",true],
+    ["Retorno",pct(roi),"Ganancia sobre lo invertido"],
+    ["Punto de equilibrio",`${c.beUnits} de ${c.units}`,"Prendas a vender para recuperar todo"],
+    ["Paquetes",String(c.nPk),`${usd(c.nPk?c.pkFees/c.units:0)} de tasa por prenda`]
+  ].map(([l,v,s,h])=>`<div class="kpi${h?" hero":""}"><span class="eyebrow">${l}</span><span class="v">${v}</span><span class="s">${s}</span></div>`).join("");
+  const pills=[];
+  const be=c.units?c.beUnits/c.units:1;
+  pills.push(be<=0.55?["good",`Recuperas la inversión vendiendo el ${pct(be)} del stock`]:be<=0.8?["warn",`Necesitas vender el ${pct(be)} para no perder`]:["bad",`Riesgoso: necesitas vender el ${pct(be)}`]);
+  pills.push(c.capLeft>=0?["good",`Te quedan ${usd(c.capLeft,0)} del cupo 4x4 anual`]:["bad",`Te pasas del cupo 4x4 por ${usd(-c.capLeft,0)}`]);
+  const tasaShare=c.fob?c.pkFees/c.fob:0;
+  pills.push(tasaShare<=0.25?["good",`Las tasas suman el ${pct(tasaShare)} del pedido`]:["warn",`Las tasas pesan el ${pct(tasaShare)}: llena más cada paquete`]);
+  pills.push(["warn","El 4x4 no permite reventa: lee Riesgos"]);
+  $("#verdict").innerHTML=pills.map(([k,t])=>`<span class="pill ${k}">${t}</span>`).join("");
+}
+
+function renderPackages(c){
+  const P=c.P;
+  $("#pkNote").textContent=`${c.nPk} paquete${c.nPk===1?"":"s"} × ${usd(P.tasa+P.manejo)}`;
+  $("#packages").innerHTML=c.boxes.length?c.boxes.map((b,i)=>`<div class="pkrow"><strong>Paquete ${i+1}</strong><div style="display:grid;gap:4px">
+    <div class="bar" title="Peso"><i style="width:${Math.min(100,b.w/(P.pesoUtil*10))}%"></i></div>
+    <div class="bar" title="Valor"><i class="v" style="width:${Math.min(100,b.v/P.valorMax*100)}%"></i></div>
+    <div class="pkmeta"><span>${b.n} prendas · ${(b.w/1000).toFixed(2)} kg de ${P.pesoUtil}</span><span class="num">${usd(b.v)} de ${usd(P.valorMax,0)}</span></div></div></div>`).join("")+`<p class="note">Barra dorada: peso. Barra verde: valor. En ropa infantil casi siempre se llena primero el peso, así que cada paquete lleva unas 20 prendas. El peso útil deja un margen para las bolsas de Temu.</p>`:`<p class="muted">Marca al menos un producto para armar los paquetes.</p>`;
+}
+
+function renderChart(c){
+  const steps=[0.4,0.55,0.7,0.85,1];
+  const vals=steps.map(s=>c.profitAt(s));
+  const W=520,H=240,padL=56,padR=12,padT=16,padB=36;
+  const max=Math.max(0,...vals),min=Math.min(0,...vals);
+  const span=(max-min)||1;
+  const y=v=>padT+(max-v)/span*(H-padT-padB);
+  const bw=(W-padL-padR)/steps.length;
+  const ticks=[min,0,max].filter((v,i,a)=>a.indexOf(v)===i);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Ganancia neta por porcentaje vendido">`;
+  ticks.forEach(t=>{s+=`<line x1="${padL}" x2="${W-padR}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)" stroke-width="${t===0?1.5:1}"/><text x="${padL-8}" y="${y(t)+4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${usd(t,0)}</text>`});
+  steps.forEach((st,i)=>{const v=vals[i],x=padL+i*bw+bw*0.18,w=bw*0.64,top=Math.min(y(v),y(0)),h=Math.max(1,Math.abs(y(v)-y(0)));
+    s+=`<rect x="${x}" y="${top}" width="${w}" height="${h}" rx="3" fill="${v>=0?"var(--good)":"var(--bad)"}"/>`;
+    s+=`<text x="${x+w/2}" y="${v>=0?top-6:top+h+13}" text-anchor="middle" font-size="12" fill="var(--ink)" font-family="IBM Plex Mono, monospace">${usd(v,0)}</text>`;
+    s+=`<text x="${x+w/2}" y="${H-12}" text-anchor="middle" font-size="12" fill="var(--muted)">${Math.round(st*100)}%</text>`;
+  });
+  s+=`</svg><p class="note">Ventas al precio de tu tabla, después de comisión y de las prendas que no se venden. Con menos del ${c.units?Math.round(c.beUnits/c.units*100):0}% vendido pierdes dinero.</p>`;
+  $("#chart").innerHTML=s;
+}
+
+function update(full=true){
+  const c=calc();
+  if(full)renderRows(c);
+  cellUpdate(c);renderKpis(c);renderPackages(c);renderChart(c);
+}
+
+$("#reset").addEventListener("click",()=>{state=fresh();save();renderParams();update()});
+$("#copy").addEventListener("click",async e=>{
+  const txt=JSON.stringify({parametros:state.params,productos:state.products},null,2);
+  try{await navigator.clipboard.writeText(txt);e.target.textContent="Copiado"}catch(err){e.target.textContent="No se pudo copiar"}
+  setTimeout(()=>e.target.textContent="Copiar datos",1800);
+});
+$("#file").addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=()=>{try{const d=JSON.parse(rd.result);const list=Array.isArray(d)?d:(d.productos||[]);
+    if(!list.length)throw new Error("vacío");
+    state.products=list.map((x,i)=>({id:x.id||"p"+i,nombre:x.nombre||"Producto",categoria:x.categoria||"",edad:x.edad||"",precio_temu:+x.precio_temu||0,peso_g:+x.peso_g||150,cantidad:+x.cantidad||0,precio_venta:+x.precio_venta||0,referencia_local:x.referencia_local||"",demanda:+x.demanda||3,tela:x.tela||"",tallas:x.tallas||"",buscar_en_temu:x.buscar_en_temu||"",url:x.url||"",ventas:x.ventas,rating:x.rating,resenas_con_foto:x.resenas_con_foto,on:true}));
+    save();update();}catch(err){e.target.value="";$("#verdict").insertAdjacentHTML("afterbegin",'<span class="pill bad">El archivo no tiene el formato de productos.json</span>')}};
+  rd.readAsText(f);
+});
+renderParams();update();
+</script>

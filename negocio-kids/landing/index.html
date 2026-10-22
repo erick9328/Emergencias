@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nido Kids · Ropa infantil en Ecuador</title>
+<meta name="description" content="Ropa de bebé y niños de 3 meses a 5 años con entrega inmediata en Ecuador. Pijamas navideñas, vestidos de fiesta y sets de regalo. Pide por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Cambia aquí la marca, el número de WhatsApp y la ciudad. */
+:root{
+  --bg:#FBF8F3; --surface:#FFFFFF; --ink:#1C2440; --muted:#5D6685; --line:#E6E1D8;
+  --accent:#D4522A; --accent-ink:#FFFFFF; --mint:#CFE8DD; --sun:#FFE3A1;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.in{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);margin:0;line-height:1.1;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+.top{padding-block:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-family:var(--f-display);font-weight:800;font-size:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);font-weight:700;text-decoration:none;border-radius:999px;padding:12px 22px}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.hero{padding-block:36px 48px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(34px,6vw,60px);font-weight:800}
+.hero p.lead{font-size:18px;color:var(--muted);max-width:46ch;margin-block:16px 24px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero-art{aspect-ratio:4/5;max-width:100%;border-radius:28px;background:
+  radial-gradient(circle at 30% 30%,var(--sun) 0 22%,transparent 23%),
+  radial-gradient(circle at 72% 64%,var(--mint) 0 28%,transparent 29%),
+  var(--surface);border:1px solid var(--line);display:grid;place-items:end start;padding:20px}
+.hero-art span{background:var(--surface);border-radius:12px;padding:8px 12px;font-size:14px;font-weight:700;box-shadow:0 2px 10px rgba(28,36,64,.08)}
+.trust{background:var(--ink);color:var(--bg)}
+.trust .in{padding-block:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font-weight:700;font-size:15px}
+section{padding-block:56px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.head h2{font-size:clamp(26px,4vw,38px);font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.ph{aspect-ratio:1/1;background:repeating-linear-gradient(45deg,var(--bg) 0 12px,var(--surface) 12px 24px);display:grid;place-items:center;color:var(--muted);font-size:13px}
+.ph img{width:100%;height:100%;object-fit:cover}
+.card .b{padding:14px 16px 16px;display:grid;gap:6px;align-content:start}
+.card h3{font-size:18px;font-weight:600}
+.card .age{font-size:13px;color:var(--muted)}
+.card .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px}
+.price{font-family:var(--f-display);font-weight:800;font-size:22px}
+.card a.pedir{font-size:14px;font-weight:700;color:var(--accent);text-decoration:none}
+.sizes{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+table{border-collapse:collapse;width:100%;min-width:460px}
+th,td{padding:12px 14px;text-align:center;border-bottom:1px solid var(--line)}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:8px}
+.step b{font-family:var(--f-display);font-size:28px;color:var(--accent)}
+details{border-bottom:1px solid var(--line);padding-block:14px}
+summary{font-weight:700;cursor:pointer}
+details p{margin-top:8px;color:var(--muted)}
+footer{background:var(--ink);color:var(--bg)}
+footer .in{padding-block:36px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+.float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 6px 20px rgba(0,0,0,.18)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.hero-art{max-height:340px;aspect-ratio:auto;min-height:240px}.trust .in{grid-template-columns:1fr 1fr}.how{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="in top"><span class="logo">Nido Kids</span><a class="btn" data-wa="Hola, quiero ver el catálogo" href="#">Pedir por WhatsApp</a></div>
+
+<div class="in hero">
+  <div>
+    <h1>Ropita lista para Navidad, sin esperar semanas</h1>
+    <p class="lead">Pijamas navideñas, vestidos de fiesta y sets de regalo para bebés y niños de 3 meses a 5 años. Fotos reales, medidas en centímetros y entrega inmediata en <span class="city">Guayaquil</span>.</p>
+    <div class="cta"><a class="btn" data-wa="Hola, quiero ver la colección de Navidad" href="#">Ver disponibles por WhatsApp</a><a class="btn ghost" href="#tallas">¿Qué talla le queda?</a></div>
+  </div>
+  <div class="hero-art"><span>Colección Navidad 2026 · Stock limitado</span></div>
+</div>
+
+<div class="trust"><div class="in">
+  <span>Entrega hoy o mañana</span><span>Fotos reales de cada prenda</span><span>Cambio de talla en 3 días</span><span>Pago contra entrega</span>
+</div></div>
+
+<section><div class="in">
+  <div class="head"><h2>Disponibles ahora</h2><p>Precios finales. Envío a todo el país.</p></div>
+  <div class="grid" id="catalogo"></div>
+</div></section>
+
+<section id="tallas" style="background:var(--surface)"><div class="in">
+  <div class="head"><h2>Elige la talla por estatura</h2><p>Mide a tu peque de pies a cabeza. Si está entre dos tallas, elige la más grande.</p></div>
+  <div class="sizes"><table>
+    <thead><tr><th>Talla</th><th>Edad aprox.</th><th>Estatura</th><th>Largo del pie</th></tr></thead>
+    <tbody>
+      <tr><td>66</td><td>3–6 meses</td><td>59–66 cm</td><td>10–11 cm</td></tr>
+      <tr><td>73</td><td>6–9 meses</td><td>66–73 cm</td><td>11–12 cm</td></tr>
+      <tr><td>80</td><td>9–18 meses</td><td>73–80 cm</td><td>12–13 cm</td></tr>
+      <tr><td>90</td><td>18 meses–2 años</td><td>80–90 cm</td><td>13–14 cm</td></tr>
+      <tr><td>100</td><td>2–3 años</td><td>90–100 cm</td><td>14–15,5 cm</td></tr>
+      <tr><td>110</td><td>3–4 años</td><td>100–110 cm</td><td>15,5–17 cm</td></tr>
+      <tr><td>120</td><td>4–5 años</td><td>110–120 cm</td><td>17–18 cm</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section><div class="in">
+  <div class="head"><h2>Así compras</h2></div>
+  <div class="how">
+    <div class="step"><b>1</b><h3>Escríbenos</h3><p>Dinos la edad y la estatura de tu peque. Te mandamos fotos y video de la prenda.</p></div>
+    <div class="step"><b>2</b><h3>Separa tu pedido</h3><p>Transferencia, DeUna o efectivo al recibir.</p></div>
+    <div class="step"><b>3</b><h3>Recíbelo para regalar</h3><p>Entrega en tu casa con empaque de regalo opcional.</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="in">
+  <div class="head"><h2>Preguntas frecuentes</h2></div>
+  <details><summary>¿De qué tela son?</summary><p>Cada prenda indica su composición. La mayoría es algodón o algodón con un poco de elástico para que no apriete.</p></details>
+  <details><summary>¿Y si no le queda?</summary><p>Puedes cambiar la talla dentro de 3 días si la prenda está sin usar y con su etiqueta.</p></details>
+  <details><summary>¿Hasta cuándo llega para Navidad?</summary><p>En la ciudad entregamos hasta el 24 de diciembre. Para envíos a otras provincias, pide hasta el 20 de diciembre.</p></details>
+  <details><summary>¿Hacen envíos a otras ciudades?</summary><p>Sí, por courier nacional. El costo depende de la ciudad.</p></details>
+</div></section>
+
+<footer><div class="in"><span class="logo">Nido Kids</span><span>WhatsApp: <span class="wa-num"></span> · <span class="city">Guayaquil</span>, Ecuador</span></div></footer>
+
+<a class="btn float" data-wa="Hola, vi su página y quiero información" href="#">WhatsApp</a>
+
+<script>
+// El agente vendedor actualiza estos datos. Pon "foto" con la ruta de tu foto real cuando lleguen las prendas.
+const TIENDA = { whatsapp: "593990000000", ciudad: "Guayaquil" };
+const PRODUCTOS = [
+  { nombre: "Pijama navideña 2 piezas", edad: "1 a 5 años", precio: 16.99, foto: "" },
+  { nombre: "Body “Mi primera Navidad” + gorro", edad: "3 a 18 meses", precio: 14.99, foto: "" },
+  { nombre: "Vestido de fiesta con tul", edad: "1 a 5 años", precio: 24.99, foto: "" },
+  { nombre: "Conjunto camisa, pantalón y tirantes", edad: "1 a 5 años", precio: 22.99, foto: "" },
+  { nombre: "Set regalo bebé 5 piezas", edad: "3 a 12 meses", precio: 24.99, foto: "" },
+  { nombre: "Zapatos primeros pasos", edad: "6 a 24 meses", precio: 13.99, foto: "" },
+  { nombre: "Pack 3 bodies de algodón", edad: "3 a 18 meses", precio: 17.99, foto: "" },
+  { nombre: "Set de lazos y vinchas", edad: "Desde 3 meses", precio: 7.99, foto: "" }
+];
+const wa = t => `https://wa.me/${TIENDA.whatsapp}?text=${encodeURIComponent(t)}`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+document.getElementById("catalogo").innerHTML = PRODUCTOS.map(p => `
+  <article class="card">
+    <div class="ph">${p.foto ? `<img src="${esc(p.foto)}" alt="${esc(p.nombre)}" loading="lazy">` : "Foto real al llegar"}</div>
+    <div class="b"><h3>${esc(p.nombre)}</h3><span class="age">${esc(p.edad)}</span>
+      <div class="row"><span class="price">$${p.precio.toFixed(2)}</span>
+      <a class="pedir" href="${wa(`Hola, me interesa: ${p.nombre}. Mi peque mide ___ cm`)}" target="_blank" rel="noopener">Lo quiero</a></div></div>
+  </article>`).join("");
+document.querySelectorAll("[data-wa]").forEach(a => { a.href = wa(a.dataset.wa); a.target = "_blank"; a.rel = "noopener"; });
+document.querySelectorAll(".city").forEach(e => e.textContent = TIENDA.ciudad);
+document.querySelectorAll(".wa-num").forEach(e => e.textContent = "+" + TIENDA.whatsapp);
+</script>
+</body>
+</html>
