@@ -74,6 +74,16 @@ td.prod{min-width:240px}
 .tag.top{background:var(--accent-soft);color:var(--accent-ink)}
 .pos{color:var(--good)} .neg{color:var(--bad)}
 tfoot td{font-weight:700;background:var(--bg)}
+.links{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:4px;font-size:12px}
+.links a{color:var(--accent-ink);background:var(--accent-soft);border-radius:4px;padding:1px 6px;text-decoration:none}
+.links a:hover{text-decoration:underline}
+.links a.search{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.shop{display:grid;gap:0}
+.shop-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.shop-item:last-child{border-bottom:0}
+.shop-item ol{margin:4px 0 0;padding-left:20px;display:grid;gap:2px;font-size:14px}
+.shop-item ol a{color:var(--ink)}
+.shop-qty{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
 .row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
 .pk{display:grid;gap:10px}
 .pkrow{display:grid;grid-template-columns:90px 1fr;gap:10px;align-items:center;font-size:13px}
@@ -138,6 +148,12 @@ button.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
       </table>
     </div>
     <p class="note">“Costo en EC/u” = precio Temu + FODINFA + su parte de las tasas de paquete (repartidas por peso) + empaque. “Ganancia/u” ya descuenta la comisión de cobro. La publicidad se resta en el total, no por unidad.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Lista de compras en Temu</h2><span class="note" id="shopNote"></span></div>
+    <div class="callout"><p><b>Revisa cada enlace antes de pagar.</b> Los saqué de un buscador web porque desde aquí no se puede abrir Temu: no comprobé precio, ventas, reseñas ni si están disponibles en Ecuador. Algunos son de otras tiendas regionales de Temu (Canadá, Reino Unido, Australia) y Temu suele llevarte a la tienda de tu país. Si uno no abre o no existe, usa “Buscar en Temu” y ordena por <b>Más vendidos</b>.</p></div>
+    <div class="panel shop" id="shop"></div>
   </section>
 
   <div class="row2">
@@ -231,7 +247,7 @@ const PARAMS_DEF = [
   ["markup","Multiplicador para precio sugerido",2.3,0.1],
   ["usado","Ya importado por 4x4 este año ($)",0,10]
 ];
-const KEY="planPequesNavidad.v1";
+const KEY="planPequesNavidad.v2";
 function clone(o){return JSON.parse(JSON.stringify(o))}
 function fresh(){const p={};PARAMS_DEF.forEach(([k,,v])=>p[k]=v);return {params:p,products:clone(REF.productos).map(x=>({...x,on:true}))}}
 let state;
@@ -296,7 +312,7 @@ function renderRows(c){
     <td class="prod"><div class="name">${esc(p.nombre)}${top?'<span class="tag top">Prioridad</span>':""}</div>
       <div class="meta">${esc(p.edad)} · ${esc(p.categoria)}${p.ventas?` · ${Number(p.ventas).toLocaleString("es-EC")} vendidos`:""}${p.rating?` · ★ ${p.rating}`:""}${p.resenas_con_foto?` · ${p.resenas_con_foto} reseñas con foto`:""}</div>
       <div class="meta">${esc(p.tela)}</div><div class="meta">Tallas: ${esc(p.tallas)}</div>
-      ${p.url?`<div class="meta"><a href="${esc(p.url)}" target="_blank" rel="noopener">Ver en Temu</a></div>`:`<div class="meta">Buscar: “${esc(p.buscar_en_temu)}”</div>`}</td>
+      <div class="links">${linksHtml(p)}</div></td>
     <td><input type="number" id="pt-${i}" data-i="${i}" data-f="precio_temu" step="0.1" min="0" value="${p.precio_temu}"></td>
     <td><input type="number" id="pg-${i}" data-i="${i}" data-f="peso_g" step="10" min="1" value="${p.peso_g}"></td>
     <td><input type="number" id="pc-${i}" data-i="${i}" data-f="cantidad" step="1" min="0" value="${p.cantidad}"></td>
@@ -376,10 +392,24 @@ function renderChart(c){
   $("#chart").innerHTML=s;
 }
 
+function searchUrl(p){return p.url||(p.buscar_en_temu?"https://www.temu.com/search_result.html?search_key="+encodeURIComponent(p.buscar_en_temu):"")}
+function linksHtml(p){
+  const ls=(p.links||[]).map((l,i)=>`<a href="${esc(l.url)}" target="_blank" rel="noopener" title="${esc(l.texto)}">Opción ${i+1}</a>`);
+  const s=searchUrl(p);if(s)ls.push(`<a class="search" href="${esc(s)}" target="_blank" rel="noopener">Buscar en Temu</a>`);
+  return ls.join("");
+}
+function renderShop(c){
+  const on=c.rows.filter(r=>r.p.on&&r.p.cantidad>0);
+  $("#shopNote").textContent=`${on.length} productos · ${c.units} prendas · ${usd(c.fob)} en Temu`;
+  $("#shop").innerHTML=on.length?on.map(r=>{const p=r.p,s=searchUrl(p);return `<div class="shop-item"><div style="min-width:0"><h3>${esc(p.nombre)}</h3>
+    <ol>${(p.links||[]).map(l=>`<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.texto)}</a></li>`).join("")}${s?`<li><a href="${esc(s)}" target="_blank" rel="noopener">Buscar en Temu: “${esc(p.buscar_en_temu)}”</a></li>`:""}</ol></div>
+    <div class="shop-qty">${p.cantidad} u.<br><span class="muted">${usd(p.precio_temu*p.cantidad)}</span></div></div>`}).join(""):`<p class="muted">Marca productos en la tabla para armar la lista.</p>`;
+}
+
 function update(full=true){
   const c=calc();
   if(full)renderRows(c);
-  cellUpdate(c);renderKpis(c);renderPackages(c);renderChart(c);
+  cellUpdate(c);renderKpis(c);renderPackages(c);renderChart(c);renderShop(c);
 }
 
 $("#reset").addEventListener("click",()=>{state=fresh();save();renderParams();update()});
@@ -393,7 +423,7 @@ $("#file").addEventListener("change",e=>{
   const rd=new FileReader();
   rd.onload=()=>{try{const d=JSON.parse(rd.result);const list=Array.isArray(d)?d:(d.productos||[]);
     if(!list.length)throw new Error("vacío");
-    state.products=list.map((x,i)=>({id:x.id||"p"+i,nombre:x.nombre||"Producto",categoria:x.categoria||"",edad:x.edad||"",precio_temu:+x.precio_temu||0,peso_g:+x.peso_g||150,cantidad:+x.cantidad||0,precio_venta:+x.precio_venta||0,referencia_local:x.referencia_local||"",demanda:+x.demanda||3,tela:x.tela||"",tallas:x.tallas||"",buscar_en_temu:x.buscar_en_temu||"",url:x.url||"",ventas:x.ventas,rating:x.rating,resenas_con_foto:x.resenas_con_foto,on:true}));
+    state.products=list.map((x,i)=>({id:x.id||"p"+i,nombre:x.nombre||"Producto",categoria:x.categoria||"",edad:x.edad||"",precio_temu:+x.precio_temu||0,peso_g:+x.peso_g||150,cantidad:+x.cantidad||0,precio_venta:+x.precio_venta||0,referencia_local:x.referencia_local||"",demanda:+x.demanda||3,tela:x.tela||"",tallas:x.tallas||"",buscar_en_temu:x.buscar_en_temu||"",url:x.url||"",links:Array.isArray(x.links)?x.links:[],ventas:x.ventas,rating:x.rating,resenas_con_foto:x.resenas_con_foto,on:true}));
     save();update();}catch(err){e.target.value="";$("#verdict").insertAdjacentHTML("afterbegin",'<span class="pill bad">El archivo no tiene el formato de productos.json</span>')}};
   rd.readAsText(f);
 });
